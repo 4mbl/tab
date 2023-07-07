@@ -1,37 +1,50 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+
+interface Todo {
+    userId: number;
+    id: number;
+    title: string;
+    completed: boolean;
+}
+
+const data: Todo[] = await fetch('https://jsonplaceholder.typicode.com/todos/')
+    .then((response) => response.json())
 ---
 
 <Layout title="New Tab">
-	<main>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-		</ul>
-	</main>
+    <main>
+        <ul role="list" class="link-card-grid">
+            {Object.entries(data).map(([key, item]: [string, Todo]) => (
+                <Card
+                    href={`https://example.com/${item.id}`}
+                    title={item.title}
+                />
+            ))}
+
+        </ul>
+    </main>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+    main {
+        margin: auto;
+        padding: 1.5rem;
+        max-width: 60ch;
+        color: white;
+    }
+    .text-gradient {
+        background-image: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 400%;
+        background-position: 0%;
+    }
+    .link-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+        gap: 1rem;
+        padding: 0;
+    }
 </style>
