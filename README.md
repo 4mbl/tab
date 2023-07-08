@@ -27,7 +27,6 @@ You can pass custom json data source with the `src` query parameter.
     "title": "Google",
     "body": "Search Engine"
   },
-  // ...
   {
     "url": "https://www.github.com",
     "title": "GitHub",
