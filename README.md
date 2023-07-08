@@ -1,4 +1,4 @@
-# [_unnamed link viewer_](https://chr-new-tab.vercel.app/)
+# [tab](https://tab.4mbl.net)
 > A simple link viewer with support for custom data sources.
 
 
@@ -17,7 +17,7 @@
 
 
 ## Usage
-Head to [https://chr-new-tab.vercel.app](https://chr-new-tab.vercel.app/) see the site with default data.
+Head to [tab.4mbl.net](https://tab.4mbl.net) see the site with default data.
 
 ### Using custom data source
 
@@ -38,16 +38,15 @@ You can pass custom json data source with the `src` query parameter.
   }
 ]
 ```
-
 2. Upload the file to a public server.
-3. Access the site with the `src` query parameter set to the uploaded file's url without the https protocol. For example: [https://chr-new-tab.vercel.app/?src=4mbl.link/my-new-tab-data](https://chr-new-tab.vercel.app/?src=4mbl.link/my-new-tab-data).
+3. Access the site with the `src` query parameter set to the uploaded file's url without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data).
 
 ### Using as Chrome new tab page
 
 To use the site as your new tab page in Chrome, follow these steps:
 1. Install some extension that allows you to set a custom new tab page. I use [New Tab Redirect](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna) for Chrome.
 2. You might need to grant [pop-up and redirect](https://support.google.com/chrome/answer/95472) permissions for the site.
-3. Set the new tab page url to [https://chr-new-tab.vercel.app](https://chr-new-tab.vercel.app/). You can also pass the `src` query parameter here.
+3. Set the new tab page url to [tab.4mbl.net](https://tab.4mbl.net). You can also pass the `src` query parameter here.
 
 Other browsers might have similar extensions. You are on your own there.
 
