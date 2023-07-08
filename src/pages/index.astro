@@ -9,6 +9,8 @@ const customDataUrl = decodeURIComponent(Astro.url.searchParams.get('src') || ''
 let data: Link[] = defaultData;
 if (customDataUrl) {
     data = await fetch(`https://${customDataUrl}`, {
+        method: 'GET',
+        redirect: 'follow',
         headers: {
             'Access-Control-Allow-Origin': '*',
             mode: 'no-cors',
@@ -18,7 +20,6 @@ if (customDataUrl) {
 else {
     data = defaultData;
 }
-
 
 ---
 
