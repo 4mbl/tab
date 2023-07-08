@@ -12,21 +12,23 @@ const removeProtocol = (url: string) => {
 };
 ---
 
-<>
+<li>
   <a class="link-card" href={href}>
     <img
       class="favicon"
       src={`https://www.google.com/s2/favicons?domain=${href}&sz=256`}
       alt=""
     />
-    <div>
-      <h3>
-        {title}
+    <div class="link-info">
+      <h3 class="title">
+        {title ? title : removeProtocol(href)}
       </h3>
-      {body ? <p>{body}</p> : <p>{removeProtocol(href)}</p>}
+      <p class="description">
+        {body ? body : title ? removeProtocol(href) : ''}
+      </p>
     </div>
   </a>
-</>
+</li>
 
 <style>
   .link-card {
@@ -52,6 +54,15 @@ const removeProtocol = (url: string) => {
     margin-top: 0.5rem;
     margin-bottom: 0;
     color: #555;
+  }
+  .link-info {
+    max-width: 80%;
+  }
+  .title,
+  .description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .link-card:is(:hover, :focus-within) {
     background-position: 0;

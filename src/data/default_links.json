@@ -6,8 +6,7 @@
     "type": "link"
   },
   {
-    "url": "https://bing.com",
-    "title": "Bing"
+    "url": "https://bing.com"
   },
   {
     "type": "group",
@@ -26,5 +25,9 @@
         "title": "Instagram"
       }
     ]
+  },
+  {
+    "title": "Super Long Title That Should Be Truncated",
+    "url": "https://example.com/this/is/an/example/of/super/long/url/that/should/be/truncated/so/that/it/doesnt/mess/up/the/look/of/the/links"
   }
 ]
