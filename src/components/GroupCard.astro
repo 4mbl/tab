@@ -14,10 +14,12 @@ const { title, links: data } = Astro.props;
   <h2>
     {title}
   </h2>
-  <ul>
+  <ul class="link-list">
     {
       data.map((item: Link) => (
-        <LinkCard href={item.url} title={item.title} body={item.body} />
+        <div class="link-container">
+          <LinkCard href={item.url} title={item.title} body={item.body} />
+        </div>
       ))
     }
   </ul>
@@ -32,10 +34,6 @@ const { title, links: data } = Astro.props;
     background-image: none;
     background-size: 400%;
     border-radius: 0.6rem;
-    background-position: 100%;
-    transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -2px rgba(0, 0, 0, 0.1);
   }
 
   @media (max-width: 767px) {
@@ -43,10 +41,12 @@ const { title, links: data } = Astro.props;
       width: 100%;
     }
   }
+  .link-container {
+    margin: 0.5rem 0.2rem;
+  }
 
   h2 {
-    margin: 0;
+    padding: 0.5rem 0.5rem 0rem 0.5rem;
     font-size: 1.5rem !important;
-    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
 </style>
