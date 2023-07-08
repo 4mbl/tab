@@ -17,7 +17,7 @@
 
 
 ## Usage
-Head to [tab.4mbl.net](https://tab.4mbl.net) see the site with default data.
+Head to [tab.4mbl.net](https://tab.4mbl.net) to use the site.
 
 ### Using custom data source
 
@@ -39,7 +39,7 @@ You can pass custom json data source with the `src` query parameter.
 ]
 ```
 2. Upload the file to a public server.
-3. Access the site with the `src` query parameter set to the uploaded file's url without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data).
+3. Access the site with the `src` query parameter set to the url of the uploaded without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data).
 
 Only URL is required. Title and body are optional.
 
