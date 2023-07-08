@@ -38,8 +38,8 @@ You can pass custom json data source with the `src` query parameter.
   }
 ]
 ```
-2. Upload the file to a public server.
-3. Access the site with the `src` query parameter set to the url of the uploaded without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data).
+1. Upload the file to a public server accessible via https. For example: https://npoint.io.
+2. Access the site with the `src` query parameter set to the url of the uploaded without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data).
 
 Only URL is required. Title and body are optional.
 
