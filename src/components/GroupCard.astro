@@ -7,16 +7,28 @@ export interface Props {
   links: Link[];
 }
 
-const { title, links: data } = Astro.props;
+const { title, links } = Astro.props;
+
+function uuid() {
+  return 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/x/g, function () {
+    const randomLetter = String.fromCharCode(
+      97 + Math.floor(Math.random() * 26)
+    );
+    return randomLetter;
+  });
+}
+
+const group = uuid();
 ---
 
 <div class="group-card">
   <h2>
     {title}
+    <button id={group}>Open All</button>
   </h2>
-  <ul class="link-list">
+  <ul class=`link-list`>
     {
-      data.map((item: Link) => (
+      links.map((item: Link) => (
         <div class="link-container">
           <LinkCard href={item.url} title={item.title} body={item.body} />
         </div>
@@ -50,3 +62,13 @@ const { title, links: data } = Astro.props;
     font-size: 1.5rem !important;
   }
 </style>
+
+<script define:vars={{ group, links }}>
+const openAllBtn = document.querySelector(`#${group}`);
+openAllBtn.addEventListener('click', () => {
+  links.forEach((link) => {
+    window.open(link.url, '_blank');
+  });
+  window.close();
+});
+</script>
