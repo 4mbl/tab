@@ -10,68 +10,64 @@ export const prerender = false;
 type Item = Link | Group;
 
 const customDataUrl = decodeURIComponent(
-    Astro.url.searchParams.get('src') || ''
+  Astro.url.searchParams.get('src') || ''
 );
 let data: Item[] = defaultData as Item[];
 if (customDataUrl) {
-    data = await fetch(`https://${customDataUrl}`, {
-        method: 'GET',
-        redirect: 'follow',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            mode: 'no-cors',
-        },
-    }).then((response) => response.json());
+  data = await fetch(`https://${customDataUrl}`, {
+    method: 'GET',
+    redirect: 'follow',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      mode: 'no-cors',
+    },
+  }).then((response) => response.json());
 } else {
-    data = defaultData as Item[];
+  data = defaultData as Item[];
 }
 
 const onlyLinks = data.filter(
-    (item): item is Link => item.type === 'link' || item.type === undefined
+  (item): item is Link => item.type === 'link' || item.type === undefined
 );
 const onlyGroups = data.filter((item): item is Group => item.type === 'group');
 ---
 
 <Layout title="New Tab">
-    <main>
-        <ul role="list" class="link-card-grid">
-            {
-                onlyLinks.map((item: Link) => (
-                    <LinkCard
-                        href={item.url}
-                        title={item.title}
-                        body={item.body}
-                    />
-                ))
-            }
+  <main>
+    <ul role="list" class="link-card-grid">
+      {
+        onlyLinks.map((item: Link) => (
+          <LinkCard href={item.url} title={item.title} body={item.body} />
+        ))
+      }
 
-            {
-                onlyGroups.map((item: Group) => (
-                    <GroupCard title={item.title!} links={item.links} />
-                ))
-            }
-        </ul>
-    </main>
+      {
+        onlyGroups.map((item: Group) => (
+          <GroupCard title={item.title!} links={item.links} />
+        ))
+      }
+    </ul>
+  </main>
 </Layout>
 
 <style>
-    main {
-        margin: auto;
-        padding: 1.5rem;
-        max-width: 60ch;
-        color: white;
-    }
-    .text-gradient {
-        background-image: var(--accent-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-size: 400%;
-        background-position: 0%;
-    }
-    .link-card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-        gap: 1rem;
-        padding: 0;
-    }
+  main {
+    margin: auto;
+    padding: 1.5rem;
+    max-width: 60ch;
+    color: white;
+  }
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+  .link-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+    gap: 1rem;
+    padding: 0;
+  }
 </style>
