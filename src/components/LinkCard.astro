@@ -6,6 +6,10 @@ export interface Props {
 }
 
 const { href, title, body } = Astro.props;
+
+const removeProtocol = (url: string) => {
+  return url.replace(/(^\w+:|^)\/\//, '');
+};
 ---
 
 <>
@@ -19,7 +23,7 @@ const { href, title, body } = Astro.props;
       <h3>
         {title}
       </h3>
-      {body ? <p>{body}</p> : <p>{href}</p>}
+      {body ? <p>{body}</p> : <p>{removeProtocol(href)}</p>}
     </div>
   </a>
 </>
