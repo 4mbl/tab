@@ -34,7 +34,7 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
 
 <Layout title="New Tab">
     <main>
-        <u role="list" class="link-card-grid">
+        <ul role="list" class="link-card-grid">
             {
                 onlyLinks.map((item: Link) => (
                     <LinkCard
@@ -50,7 +50,7 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
                     <GroupCard title={item.title!} links={item.links} />
                 ))
             }
-        </u>
+        </ul>
     </main>
 </Layout>
 
