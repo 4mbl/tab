@@ -36,14 +36,13 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
   <main>
     <ul role="list" class="link-card-grid">
       {
-        onlyLinks.map((item: Link) => (
-          <LinkCard href={item.url} title={item.title} body={item.body} />
-        ))
-      }
-
-      {
         onlyGroups.map((item: Group) => (
           <GroupCard title={item.title!} links={item.links} />
+        ))
+      }
+      {
+        onlyLinks.map((item: Link) => (
+          <LinkCard href={item.url} title={item.title} body={item.body} />
         ))
       }
     </ul>
