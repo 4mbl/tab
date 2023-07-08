@@ -2,13 +2,12 @@
   {
     "url": "https://www.google.com",
     "title": "Google",
-    "body": "Search Engine"
-  },
-  {
-    "url": "https://www.bing.com",
-    "title": "Bing",
     "body": "Search Engine",
     "type": "link"
+  },
+  {
+    "url": "https://bing.com",
+    "title": "Bing"
   },
   {
     "type": "group",
@@ -16,17 +15,14 @@
     "links": [
       {
         "url": "https://www.facebook.com",
-        "body": "",
         "title": "Facebook"
       },
       {
         "url": "https://www.twitter.com",
-        "body": "",
         "title": "Twitter"
       },
       {
         "url": "https://www.instagram.com",
-        "body": "",
         "title": "Instagram"
       }
     ]
