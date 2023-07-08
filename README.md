@@ -41,6 +41,29 @@ You can pass custom json data source with the `src` query parameter.
 2. Upload the file to a public server.
 3. Access the site with the `src` query parameter set to the uploaded file's url without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data).
 
+Only URL is required. Title and body are optional.
+
+You can also define group of links in the following way:
+```json
+[
+  {
+    "url": "https://www.google.com",
+  },
+  {
+    "type": "group",
+    "title": "Social Media",
+    "links": [
+      {
+        "url": "https://www.facebook.com",
+      },
+      {
+        "url": "https://www.twitter.com",
+      }
+    ]
+  }
+]
+```
+
 ### Using as Chrome new tab page
 
 To use the site as your new tab page in Chrome, follow these steps:
