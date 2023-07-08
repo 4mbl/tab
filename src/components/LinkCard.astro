@@ -11,9 +11,9 @@ const { href, title, body } = Astro.props;
 <li class="link-card">
     <img class="favicon" src={`https://www.google.com/s2/favicons?domain=${href}&sz=256`} alt="">
 	<a href={href}>
-		<h2>
+		<h3>
 			{title}
-		</h2>
+		</h3>
         {
             body
             ? <p>{body}</p>
@@ -21,6 +21,7 @@ const { href, title, body } = Astro.props;
         }
 	</a>
 </li>
+
 <style>
 	.link-card {
 		list-style: none;
@@ -45,7 +46,7 @@ const { href, title, body } = Astro.props;
 		background-color: #111;
 		opacity: 0.8;
 	}
-	h2 {
+	h3 {
 		margin: 0;
 		font-size: 1.25rem;
 		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -59,7 +60,7 @@ const { href, title, body } = Astro.props;
 		background-position: 0;
 		background-image: var(--accent-gradient);
 	}
-	.link-card:is(:hover, :focus-within) h2 {
+	.link-card:is(:hover, :focus-within) h3 {
 		color: rgb(var(--accent));
 	}
     .favicon {
