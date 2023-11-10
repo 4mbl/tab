@@ -21,16 +21,20 @@ function uuid() {
 const group = uuid();
 ---
 
-<div class="group-card">
-  <h2 class="group-title">
-    {title}
-    <button id={group} class="btn-open-all">Open All</button>
-  </h2>
-  <ul class=`link-list`>
+<div id={group} class="group-card">
+  <div class="group-header">
+    <h2 class="closed" tabindex="1">{title}</h2>
+    <button class="btn-open-all" tabindex="1">Open All</button>
+  </div>
+  <ul class="link-list hidden">
     {
       links.map((item: Link) => (
-        <div class="link-container">
-          <LinkCard href={item.url} title={item.title} body={item.body} />
+        <div class="link-container" tabindex="1">
+          <LinkCard
+            href={item.url}
+            title={item.title}
+            body={item.body}
+          />
         </div>
       ))
     }
@@ -41,7 +45,7 @@ const group = uuid();
   .group-card {
     /* width: calc((24ch + 1rem + 0.25rem) * 2 + 1rem); */
     list-style: none;
-    padding: 0.25rem;
+    padding: 0.1em;
     background-color: #383838;
     background-image: none;
     background-size: 400%;
@@ -54,15 +58,26 @@ const group = uuid();
     }
   }
 
-  .group-title {
+  .group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .group-header h2 {
     padding: 0.5rem 0.5rem 0rem 0.5rem;
     font-size: 1.5rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
   }
 
   .btn-open-all {
-    float: right;
     display: flex;
     align-items: center;
+    margin: 0.5rem;
     height: 1.5rem;
     font-size: 1rem;
     padding: 0.8rem;
@@ -82,14 +97,41 @@ const group = uuid();
   .link-container {
     margin: 0.5rem;
   }
+
+  .open::before {
+    content: '⯆';
+    margin-right: 0.5rem;
+  }
+
+  .closed::before {
+    content: '⯈';
+    margin-right: 0.5rem;
+  }
+
 </style>
 
 <script define:vars={{ group, links }}>
-  const openAllBtn = document.querySelector(`#${group}`);
+  const openAllBtn = document.querySelector(`#${group} button`);
   openAllBtn.addEventListener('click', () => {
     links.forEach((link) => {
       window.open(link.url, '_blank');
     });
     window.close();
+  });
+
+  const heading = document.querySelector(`#${group} h2`);
+  heading.addEventListener('click', () => {
+    const linkList = document.querySelector(`#${group} .link-list`);
+    linkList.classList.toggle('hidden');
+    heading.classList.toggle('open');
+    heading.classList.toggle('closed');
+  });
+  heading.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const linkList = document.querySelector(`#${group} .link-list`);
+      linkList.classList.toggle('hidden');
+      heading.classList.toggle('open');
+      heading.classList.toggle('closed');
+    }
   });
 </script>
