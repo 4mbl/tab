@@ -22,9 +22,9 @@ const group = uuid();
 ---
 
 <div class="group-card">
-  <h2>
+  <h2 class="group-title">
     {title}
-    <button id={group}>Open All</button>
+    <button id={group} class="btn-open-all">Open All</button>
   </h2>
   <ul class=`link-list`>
     {
@@ -53,22 +53,43 @@ const group = uuid();
       width: 100%;
     }
   }
-  .link-container {
-    margin: 0.5rem;
+
+  .group-title {
+    padding: 0.5rem 0.5rem 0rem 0.5rem;
+    font-size: 1.5rem;
   }
 
-  h2 {
-    padding: 0.5rem 0.5rem 0rem 0.5rem;
-    font-size: 1.5rem !important;
+  .btn-open-all {
+    float: right;
+    display: flex;
+    align-items: center;
+    height: 1.5rem;
+    font-size: 1rem;
+    padding: 0.8rem;
+    border-radius: 0.25rem;
+    border: 1px solid #fff;
+    background-color: #222;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .btn-open-all:hover,
+  .btn-open-all:focus {
+    background-color: #fff;
+    color: #222;
+  }
+
+  .link-container {
+    margin: 0.5rem;
   }
 </style>
 
 <script define:vars={{ group, links }}>
-const openAllBtn = document.querySelector(`#${group}`);
-openAllBtn.addEventListener('click', () => {
-  links.forEach((link) => {
-    window.open(link.url, '_blank');
+  const openAllBtn = document.querySelector(`#${group}`);
+  openAllBtn.addEventListener('click', () => {
+    links.forEach((link) => {
+      window.open(link.url, '_blank');
+    });
+    window.close();
   });
-  window.close();
-});
 </script>
