@@ -1,49 +1,58 @@
 # [tab](https://tab.4mbl.net)
+>
 > A simple link viewer with support for custom data sources.
 
-
 ## Table of Contents
+
 * [Table of Contents](#table-of-contents)
 * [Technologies](#technologies)
 * [Usage](#usage)
-  * [Using custom data source](#using-custom-data-source)
+  * [Customizing Data](#customizing-data)
+  * [Link Groups](#link-groups)
   * [Using as Chrome new tab page](#using-as-chrome-new-tab-page)
 * [License](#license)
 
-
 ## Technologies
+
 * [Astro](https://astro.build/)
 * [Vercel](https://vercel.com/)
 
-
 ## Usage
+
 Head to [tab.4mbl.net](https://tab.4mbl.net) to use the site.
 
-### Using custom data source
+### Customizing Data
 
 You can pass custom json data source with the `src` query parameter.
 
 1. Create a json file with the following structure:
-```json
-[
-  {
-    "url": "https://www.google.com",
-    "title": "Google",
-    "body": "Search Engine"
-  },
-  {
-    "url": "https://www.github.com",
-    "title": "GitHub",
-    "body": "Code Hosting"
-  }
-]
-```
-1. Upload the file to a public server accessible via https. For example: https://npoint.io.
-2. Access the site with the `src` query parameter set to the url of the uploaded without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data).
 
-Only URL is required. Title and body are optional.
+    ```json
+    [
+    {
+        "url": "https://www.google.com",
+        "title": "Google",
+        "body": "Search Engine"
+    },
+    {
+        "url": "https://www.github.com",
+        "title": "GitHub",
+        "body": "Code Hosting"
+    }
+    ]
+    ```
+
+    Only URL is required. Title and body are optional.
+
+2. Upload the file to a public server accessible via https. For example: <https://npoint.io>.
+3. Pass in the URL of the uploaded file to the `src` query parameter without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data). You might need to encode the url if it contains special characters.
+
+Multiple data sources can be used by separating them with a semicolon.
+
+### Link Groups
 
 You can also define group of links in the following way:
+
 ```json
 [
   {
@@ -67,6 +76,7 @@ You can also define group of links in the following way:
 ### Using as Chrome new tab page
 
 To use the site as your new tab page in Chrome, follow these steps:
+
 1. Install some extension that allows you to set a custom new tab page. I use [New Tab Redirect](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna) for Chrome.
 2. You might need to grant [pop-up and redirect](https://support.google.com/chrome/answer/95472) permissions for the site.
 3. Set the new tab page url to [tab.4mbl.net](https://tab.4mbl.net). You can also pass the `src` query parameter here.
@@ -74,4 +84,5 @@ To use the site as your new tab page in Chrome, follow these steps:
 Other browsers might have similar extensions. You are on your own there.
 
 ## License
+
 Distributed under the [MIT](https://choosealicense.com/licenses/mit/) license.
