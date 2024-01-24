@@ -12,18 +12,24 @@ type Item = Link | Group;
 const customDataUrl = decodeURIComponent(
   Astro.url.searchParams.get('src') || ''
 );
-let data: Item[] = defaultData as Item[];
-if (customDataUrl) {
-  data = await fetch(`https://${customDataUrl}`, {
-    method: 'GET',
-    redirect: 'follow',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      mode: 'no-cors',
-    },
-  }).then((response) => response.json());
-} else {
+
+const urls = customDataUrl.split(';').filter((url) => url.length > 0);
+let data;
+if (urls.length === 0) {
   data = defaultData as Item[];
+} else {
+  data = await Promise.all(
+    urls.map((url) =>
+      fetch(`https://${url}`, {
+        method: 'GET',
+        redirect: 'follow',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          mode: 'no-cors',
+        },
+      }).then((response) => response.json())
+    )
+  ).then((responses) => responses.flat());
 }
 
 const onlyLinks = data.filter(
