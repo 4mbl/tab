@@ -9,11 +9,11 @@ export const prerender = false;
 
 type Item = Link | Group;
 
-const customDataUrl = decodeURIComponent(
-  Astro.url.searchParams.get('src') || ''
-);
+const params = Astro.url.searchParams.get('src')?.split(';') || [];
+const urls = params
+  .filter((url) => url.length > 0)
+  .map((url) => decodeURIComponent(url));
 
-const urls = customDataUrl.split(';').filter((url) => url.length > 0);
 let data;
 if (urls.length === 0) {
   data = defaultData as Item[];
