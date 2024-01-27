@@ -26,6 +26,7 @@ if (urls.length === 0) {
         headers: {
           'Access-Control-Allow-Origin': '*',
           mode: 'no-cors',
+          'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=300',
         },
       }).then((response) => response.json())
     )
