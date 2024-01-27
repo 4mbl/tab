@@ -33,9 +33,10 @@ if (urls.length === 0) {
   ).then((responses) => responses.flat());
 }
 
-const onlyLinks = data.filter(
-  (item): item is Link => item.type === 'link' || item.type === undefined
-);
+const onlyLinks = data
+  .filter((item): item is Link => item.type === 'link' || !item.type)
+  .filter((item) => item.url);
+
 const onlyGroups = data.filter((item): item is Group => item.type === 'group');
 ---
 
