@@ -30,11 +30,7 @@ const group = uuid();
     {
       links.map((item: Link) => (
         <div class="link-container" tabindex="1">
-          <LinkCard
-            href={item.url}
-            title={item.title}
-            body={item.body}
-          />
+          <LinkCard href={item.url} title={item.title} body={item.body} />
         </div>
       ))
     }
@@ -108,6 +104,9 @@ const group = uuid();
     margin-right: 0.5rem;
   }
 
+  .hidden {
+    display: none;
+  }
 </style>
 
 <script define:vars={{ group, links }}>
