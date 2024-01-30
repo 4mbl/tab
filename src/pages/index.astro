@@ -66,6 +66,7 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
     width: 60ch;
     color: white;
   }
+
   .text-gradient {
     background-image: var(--accent-gradient);
     -webkit-background-clip: text;
@@ -73,15 +74,16 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
     background-size: 400%;
     background-position: 0%;
   }
+
   .link-card-grid {
     display: flex;
     flex-wrap: wrap;
     flex-flow: column;
+    align-items: center;
     gap: 1rem;
     padding: 0;
     gap: 1rem;
     padding: 0;
     margin: 0;
-    list-style: none;
   }
 </style>
