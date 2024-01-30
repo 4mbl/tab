@@ -1,0 +1,50 @@
+---
+export interface Props {}
+
+const {} = Astro.props;
+---
+
+<textarea id="text"></textarea>
+
+<script>
+  const LOCAL_STORAGE_KEY = 'text-editor';
+  const textarea = document.getElementById('text') as HTMLTextAreaElement;
+  textarea.addEventListener('input', writeLocalStorage);
+
+  function writeLocalStorage() {
+    if (typeof Storage) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, textarea.value);
+    } else {
+      textarea.innerText = 'LOCALSTORAGE NOT SUPPORTED';
+    }
+  }
+
+  function readLocalStorage() {
+    if (typeof Storage) {
+      const value = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (value) textarea.value = value;
+    } else {
+      textarea.innerText = 'LOCALSTORAGE NOT SUPPORTED';
+    }
+  }
+
+  // DOMContentLoaded may have already fired, so check document.readyState
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', readLocalStorage);
+  } else {
+    readLocalStorage();
+  }
+</script>
+
+<style>
+  #text {
+    width: calc(100% - 2rem);
+    height: 100%;
+    border-radius: 0.35rem;
+    background-color: #222;
+    padding: 1rem;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  }
+</style>

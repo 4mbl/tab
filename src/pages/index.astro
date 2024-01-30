@@ -5,6 +5,7 @@ import GroupCard from '../components/GroupCard.astro';
 import type { Link } from './Link';
 import type { Group } from './Group';
 import defaultData from '../data/default_links.json';
+import TextEditor from '../components/TextEditor.astro';
 export const prerender = false;
 
 type Item = Link | Group;
@@ -38,6 +39,9 @@ const onlyLinks = data
   .filter((item) => item.url);
 
 const onlyGroups = data.filter((item): item is Group => item.type === 'group');
+
+const textEditorVisible =
+  Astro.url.searchParams.get('editor') !== 'false' ?? false;
 ---
 
 <Layout title="New Tab">
@@ -60,6 +64,13 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
         }
       </ul>
     </div>
+    {
+      textEditorVisible && (
+        <div class="text-editor-container">
+          <TextEditor />
+        </div>
+      )
+    }
   </main>
 </Layout>
 
@@ -96,5 +107,11 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
     gap: 1rem;
     padding: 0;
     margin: 0;
+  }
+
+  .text-editor-container {
+    width: 55ch;
+    height: 15rem;
+    margin: 1rem 0;
   }
 </style>
