@@ -29,23 +29,23 @@ const group = uuid();
   <ul class="link-list hidden">
     {
       links.map((item: Link) => (
-        <div class="link-container" tabindex="1">
-          <LinkCard
-            href={item.url}
-            title={item.title}
-            body={item.body}
-          />
-        </div>
+        <li class="group-item">
+          <LinkCard href={item.url} title={item.title} body={item.body} />
+        </li>
       ))
     }
   </ul>
 </div>
 
 <style>
+  .group-item {
+    width: 100%;
+  }
+
   .group-card {
-    /* width: calc((24ch + 1rem + 0.25rem) * 2 + 1rem); */
+    width: 100%;
+    padding: 0.25rem 0;
     list-style: none;
-    padding: 0.1em;
     background-color: #383838;
     background-image: none;
     background-size: 400%;
@@ -65,13 +65,21 @@ const group = uuid();
   }
 
   .group-header h2 {
-    padding: 0.5rem 0.5rem 0rem 0.5rem;
+    padding-left: 0.5rem;
     font-size: 1.5rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     cursor: pointer;
+  }
+
+  .link-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 97.5%;
+    margin: 0 auto;
+    gap: 0.5rem;
   }
 
   .btn-open-all {
@@ -94,10 +102,6 @@ const group = uuid();
     color: #222;
   }
 
-  .link-container {
-    margin: 0.5rem;
-  }
-
   .open::before {
     content: '⯆';
     margin-right: 0.5rem;
@@ -108,6 +112,9 @@ const group = uuid();
     margin-right: 0.5rem;
   }
 
+  .hidden {
+    display: none;
+  }
 </style>
 
 <script define:vars={{ group, links }}>
@@ -121,17 +128,19 @@ const group = uuid();
 
   const heading = document.querySelector(`#${group} h2`);
   heading.addEventListener('click', () => {
-    const linkList = document.querySelector(`#${group} .link-list`);
-    linkList.classList.toggle('hidden');
-    heading.classList.toggle('open');
-    heading.classList.toggle('closed');
+    toggleLinkList(group);
   });
   heading.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      const linkList = document.querySelector(`#${group} .link-list`);
-      linkList.classList.toggle('hidden');
-      heading.classList.toggle('open');
-      heading.classList.toggle('closed');
+      toggleLinkList(group);
     }
   });
+
+  function toggleLinkList(groupId) {
+    const heading = document.querySelector(`#${groupId} h2`);
+    const linkList = document.querySelector(`#${groupId} .link-list`);
+    linkList.classList.toggle('hidden');
+    heading.classList.toggle('open');
+    heading.classList.toggle('closed');
+  }
 </script>

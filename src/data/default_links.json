@@ -27,7 +27,7 @@
     ]
   },
   {
-    "title": "Super Long Title That Should Be Truncated",
+    "title": "Long Title That Should Be Truncated So That It Doesn't Mess Up The Look Of The Links",
     "url": "https://example.com/this/is/an/example/of/super/long/url/that/should/be/truncated/so/that/it/doesnt/mess/up/the/look/of/the/links"
   }
 ]

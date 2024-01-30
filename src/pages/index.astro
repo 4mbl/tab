@@ -46,12 +46,16 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
       <ul role="list" class="link-card-grid">
         {
           onlyGroups.map((item: Group) => (
-            <GroupCard title={item.title!} links={item.links} />
+            <li class="grid-item">
+              <GroupCard title={item.title!} links={item.links} />
+            </li>
           ))
         }
         {
           onlyLinks.map((item: Link) => (
-            <LinkCard href={item.url} title={item.title} body={item.body} />
+            <li class="grid-item">
+              <LinkCard href={item.url} title={item.title} body={item.body} />
+            </li>
           ))
         }
       </ul>
@@ -63,9 +67,16 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
   main {
     margin: auto;
     padding: 1.5rem;
-    width: 60ch;
     color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+
+  .grid-item {
+    width: 100%;
+  }
+
   .text-gradient {
     background-image: var(--accent-gradient);
     -webkit-background-clip: text;
@@ -73,15 +84,17 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
     background-size: 400%;
     background-position: 0%;
   }
+
   .link-card-grid {
+    width: 55ch;
     display: flex;
     flex-wrap: wrap;
     flex-flow: column;
+    align-items: center;
     gap: 1rem;
     padding: 0;
     gap: 1rem;
     padding: 0;
     margin: 0;
-    list-style: none;
   }
 </style>
