@@ -29,9 +29,7 @@ const group = uuid();
   <ul class="link-list hidden">
     {
       links.map((item: Link) => (
-        <div class="link-container" tabindex="1">
-          <LinkCard href={item.url} title={item.title} body={item.body} />
-        </div>
+        <LinkCard href={item.url} title={item.title} body={item.body} />
       ))
     }
   </ul>
@@ -40,8 +38,9 @@ const group = uuid();
 <style>
   .group-card {
     width: 90%;
+    padding: 0.25rem 0;
     list-style: none;
-    padding: 0.1em;
+    align-items: center;
     background-color: #383838;
     background-image: none;
     background-size: 400%;
@@ -61,13 +60,19 @@ const group = uuid();
   }
 
   .group-header h2 {
-    padding: 0.5rem 0.5rem 0rem 0.5rem;
+    padding-left: 0.5rem;
     font-size: 1.5rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     cursor: pointer;
+  }
+
+  .link-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .btn-open-all {
@@ -88,10 +93,6 @@ const group = uuid();
   .btn-open-all:focus {
     background-color: #fff;
     color: #222;
-  }
-
-  .link-container {
-    margin: 0.5rem;
   }
 
   .open::before {
