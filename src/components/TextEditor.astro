@@ -4,7 +4,8 @@ export interface Props {}
 const {} = Astro.props;
 ---
 
-<textarea id="text"></textarea>
+<textarea id="text" placeholder="Anything typed here is saved to locally..."
+></textarea>
 
 <script>
   const LOCAL_STORAGE_KEY = 'text-editor';
