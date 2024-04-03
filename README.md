@@ -1,5 +1,5 @@
 # [tab](https://tab.4mbl.net)
->
+
 > A simple link viewer with support for custom data sources.
 
 ## Table of Contents
@@ -26,7 +26,7 @@ Head to [tab.4mbl.net](https://tab.4mbl.net) to use the site.
 
 ### Customizing Data
 
-You can customize the links in two ways. You can either pass the links in the URL or use an external JSON data source.
+You can customize the displayed links in two ways. You can either pass the links in the URL or use an external JSON data source.
 
 #### Passing links in the URL
 
