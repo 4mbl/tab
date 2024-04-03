@@ -6,7 +6,7 @@ type Item = Link | Group;
 
 export async function getData(searchParams: URLSearchParams): Promise<Item[]> {
   if (searchParams.has('links')) {
-    const urls = searchParams.get('links')!.split(';');
+    const urls = searchParams.get('links')!.split(/[,;]/);
     return urls.map((url) => {
       const decoded = decodeURIComponent(url);
       return {
@@ -19,7 +19,7 @@ export async function getData(searchParams: URLSearchParams): Promise<Item[]> {
   }
 
   if (searchParams.has('src')) {
-    const src = searchParams.get('src')?.split(';') || [];
+    const src = searchParams.get('src')?.split(/[,;]/) || [];
     const urls = src
       .filter((url) => url.length > 0)
       .map((url) => decodeURIComponent(url));
