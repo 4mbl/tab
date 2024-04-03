@@ -32,9 +32,9 @@ You can customize the links in two ways. You can either pass the links in the UR
 
 Simply pass the links as semi-colon separated values in the `links` query parameter.
 
-For example: [`https://tab.4mbl.net/?links=example.com;example.org`](https://tab.4mbl.net/?links=example.com;example.org).
+For example: [`https://tab.4mbl.net/?links=example.com;example.org`](https://tab.4mbl.net/?links=example.com;example.org). You may also include the protocol in the URL.
 
-You may also include the protocol in the URL, but it is not required.
+It is also possible to pass local file paths. For example: [`https://tab.4mbl.net/?links=file:///C:/path/to/local/file`](https://tab.4mbl.net/?links=file:///C:/path/to/local/file).
 
 #### External JSON Data Source
 
