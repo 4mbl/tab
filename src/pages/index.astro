@@ -4,34 +4,11 @@ import LinkCard from '../components/LinkCard.astro';
 import GroupCard from '../components/GroupCard.astro';
 import type { Link } from './Link';
 import type { Group } from './Group';
-import defaultData from '../data/default_links.json';
 import TextEditor from '../components/TextEditor.astro';
+import { getData } from './getData';
 export const prerender = false;
 
-type Item = Link | Group;
-
-const params = Astro.url.searchParams.get('src')?.split(';') || [];
-const urls = params
-  .filter((url) => url.length > 0)
-  .map((url) => decodeURIComponent(url));
-
-let data;
-if (urls.length === 0) {
-  data = defaultData as Item[];
-} else {
-  data = await Promise.all(
-    urls.map((url) =>
-      fetch(`https://${url}`, {
-        method: 'GET',
-        redirect: 'follow',
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Content-Type': 'application/json',
-        },
-      }).then((response) => response.json())
-    )
-  ).then((responses) => responses.flat());
-}
+const data = await getData(Astro.url.searchParams);
 
 const onlyLinks = data
   .filter((item): item is Link => item.type === 'link' || !item.type)
