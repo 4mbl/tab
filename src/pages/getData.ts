@@ -10,7 +10,10 @@ export async function getData(searchParams: URLSearchParams): Promise<Item[]> {
     return urls.map((url) => {
       const decoded = decodeURIComponent(url);
       return {
-        url: decoded.startsWith('http') ? decoded : `https://${decoded}`,
+        url:
+          decoded.startsWith('http') || decoded.startsWith('file://')
+            ? decoded
+            : `https://${decoded}`,
       };
     });
   }
