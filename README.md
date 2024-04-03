@@ -1,5 +1,5 @@
 # [tab](https://tab.4mbl.net)
->
+
 > A simple link viewer with support for custom data sources.
 
 ## Table of Contents
@@ -8,6 +8,8 @@
 * [Technologies](#technologies)
 * [Usage](#usage)
   * [Customizing Data](#customizing-data)
+    * [Passing links in the URL](#passing-links-in-the-url)
+    * [External JSON Data Source](#external-json-data-source)
   * [Link Groups](#link-groups)
   * [Using as Chrome new tab page](#using-as-chrome-new-tab-page)
   * [Other Features](#other-features)
@@ -23,6 +25,18 @@
 Head to [tab.4mbl.net](https://tab.4mbl.net) to use the site.
 
 ### Customizing Data
+
+You can customize the displayed links in two ways. You can either pass the links in the URL or use an external JSON data source.
+
+#### Passing links in the URL
+
+Simply pass the links as semicolon (or comma) separated values in the `links` query parameter.
+
+For example: [`https://tab.4mbl.net/?links=example.com;example.org`](https://tab.4mbl.net/?links=example.com;example.org). You may also include the protocol in the URL.
+
+It is also possible to pass local file paths. For example: [`https://tab.4mbl.net/?links=file:///C:/path/to/local/file`](https://tab.4mbl.net/?links=file:///C:/path/to/local/file).
+
+#### External JSON Data Source
 
 You can pass custom json data source with the `src` query parameter.
 
@@ -48,7 +62,7 @@ You can pass custom json data source with the `src` query parameter.
 2. Upload the file to a public server accessible via https. For example: <https://npoint.io>.
 3. Pass in the URL of the uploaded file to the `src` query parameter without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data). You might need to encode the url if it contains special characters.
 
-Multiple data sources can be used by separating them with a semicolon.
+Multiple data sources can be used by separating them with a semicolon (or comma).
 
 ### Link Groups
 
@@ -87,7 +101,7 @@ Other browsers might have similar extensions. You are on your own there.
 
 ### Other Features
 
-* Disable the editor with the `editor=false` query parameter.
+* The editor can be disabled with the `editor=false` query parameter.
 
 ## License
 
