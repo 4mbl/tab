@@ -30,7 +30,7 @@ You can customize the displayed links in two ways. You can either pass the links
 
 #### Passing links in the URL
 
-Simply pass the links as semi-colon separated values in the `links` query parameter.
+Simply pass the links as semicolon (or comma) separated values in the `links` query parameter.
 
 For example: [`https://tab.4mbl.net/?links=example.com;example.org`](https://tab.4mbl.net/?links=example.com;example.org). You may also include the protocol in the URL.
 
@@ -62,7 +62,7 @@ You can pass custom json data source with the `src` query parameter.
 2. Upload the file to a public server accessible via https. For example: <https://npoint.io>.
 3. Pass in the URL of the uploaded file to the `src` query parameter without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data). You might need to encode the url if it contains special characters.
 
-Multiple data sources can be used by separating them with a semicolon.
+Multiple data sources can be used by separating them with a semicolon (or comma).
 
 ### Link Groups
 
