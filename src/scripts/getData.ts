@@ -1,6 +1,6 @@
 import defaultData from '../data/default_links.json';
-import type { Group } from './Group';
-import type { Link } from './Link';
+import type { Group } from '../pages/Group';
+import type { Link } from '../pages/Link';
 
 type Item = Link | Group;
 

@@ -5,7 +5,7 @@ import GroupCard from '../components/GroupCard.astro';
 import type { Link } from './Link';
 import type { Group } from './Group';
 import TextEditor from '../components/TextEditor.astro';
-import { getData } from './getData';
+import { getData } from '../scripts/getData';
 export const prerender = false;
 
 const data = await getData(Astro.url.searchParams);
@@ -91,3 +91,4 @@ const textEditorVisible =
     margin: 1rem 0;
   }
 </style>
+../scripts/getData
