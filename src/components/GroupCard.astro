@@ -30,7 +30,12 @@ const group = uuid();
     {
       links.map((item: Link) => (
         <li class="group-item">
-          <LinkCard href={item.url} title={item.title} body={item.body} />
+          <LinkCard
+            href={item.url}
+            title={item.title}
+            body={item.body}
+            icon={item.icon}
+          />
         </li>
       ))
     }

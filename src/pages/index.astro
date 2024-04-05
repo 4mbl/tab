@@ -34,7 +34,12 @@ const textEditorVisible =
         {
           onlyLinks.map((item: Link) => (
             <li class="grid-item">
-              <LinkCard href={item.url} title={item.title} body={item.body} />
+              <LinkCard
+                href={item.url}
+                title={item.title}
+                body={item.body}
+                icon={item.icon}
+              />
             </li>
           ))
         }
