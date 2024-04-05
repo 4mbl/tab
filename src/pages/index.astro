@@ -8,7 +8,7 @@ import TextEditor from '../components/TextEditor.astro';
 import { getData } from '../scripts/getData';
 export const prerender = false;
 
-const data = await getData(Astro.url.searchParams);
+const data = await getData(Astro.url);
 
 const onlyLinks = data
   .filter((item): item is Link => item.type === 'link' || !item.type)

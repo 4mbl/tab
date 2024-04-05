@@ -4,7 +4,8 @@ import type { Link } from '../pages/Link';
 
 type Item = Link | Group;
 
-export async function getData(searchParams: URLSearchParams): Promise<Item[]> {
+export async function getData(astroUrl: URL): Promise<Item[]> {
+  const searchParams = astroUrl.searchParams;
   if (searchParams.has('links')) {
     const urls = searchParams.get('links')!.split(/[,;]/);
     return urls.map((url) => {
@@ -49,5 +50,7 @@ export async function getData(searchParams: URLSearchParams): Promise<Item[]> {
     }
   }
 
-  return defaultData as Item[];
+  return (await fetch(`${astroUrl.origin}/-/default-links`).then((response) =>
+    response.json()
+  )) as Item[];
 }
