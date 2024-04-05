@@ -134,6 +134,7 @@ const group = uuid();
   });
   heading.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
       toggleLinkList(group);
     }
   });
