@@ -103,6 +103,7 @@ Other browsers might have similar extensions. You are on your own there.
 ### Other Features
 
 * The editor can be disabled with the `editor=false` query parameter.
+* You can create automatically opening links by passing the `auto=true` query parameter. User is asked for permission before opening the links.
 
 ## License
 
