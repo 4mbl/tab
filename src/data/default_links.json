@@ -18,7 +18,8 @@
       },
       {
         "url": "https://www.twitter.com",
-        "title": "Twitter"
+        "title": "Twitter",
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/2491px-Logo_of_Twitter.svg.png"
       },
       {
         "url": "https://www.instagram.com",

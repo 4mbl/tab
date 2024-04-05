@@ -44,20 +44,21 @@ You can pass custom json data source with the `src` query parameter.
 
     ```json
     [
-    {
-        "url": "https://www.google.com",
-        "title": "Google",
-        "body": "Search Engine"
-    },
-    {
-        "url": "https://www.github.com",
-        "title": "GitHub",
-        "body": "Code Hosting"
-    }
+      {
+          "url": "https://www.google.com",
+          "title": "Google",
+          "body": "Search Engine"
+      },
+      {
+          "url": "https://www.github.com",
+          "title": "GitHub",
+          "body": "Code Hosting",
+          "icon": "https://octodex.github.com/images/original.png"
+      }
     ]
     ```
 
-    Only URL is required. Title and body are optional.
+    Only `url` is required. Other fields are optional.
 
 2. Upload the file to a public server accessible via https. For example: <https://npoint.io>.
 3. Pass in the URL of the uploaded file to the `src` query parameter without the https protocol. For example: [`https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data`](https://tab.4mbl.net/?src=4mbl.link/example/custom-new-tab-data). You might need to encode the url if it contains special characters.

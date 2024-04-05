@@ -10,12 +10,9 @@ export interface Props {
 const { title, links } = Astro.props;
 
 function uuid() {
-  return 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/x/g, function () {
-    const randomLetter = String.fromCharCode(
-      97 + Math.floor(Math.random() * 26)
-    );
-    return randomLetter;
-  });
+  return 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/x/g, () =>
+    String.fromCharCode(97 + Math.floor(Math.random() * 26))
+  );
 }
 
 const group = uuid();
@@ -30,7 +27,12 @@ const group = uuid();
     {
       links.map((item: Link) => (
         <li class="group-item">
-          <LinkCard href={item.url} title={item.title} body={item.body} />
+          <LinkCard
+            href={item.url}
+            title={item.title}
+            body={item.body}
+            icon={item.icon}
+          />
         </li>
       ))
     }

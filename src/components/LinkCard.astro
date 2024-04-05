@@ -3,9 +3,10 @@ export interface Props {
   href: string;
   title?: string;
   body?: string;
+  icon?: string;
 }
 
-const { href, title, body } = Astro.props;
+const { href, title, body, icon } = Astro.props;
 
 const removeProtocol = (url: string) => {
   return url.replace(/(^\w+:|^)\/\//, '');
@@ -16,7 +17,8 @@ const removeProtocol = (url: string) => {
   <a class="link-button" href={href} tabindex="1">
     <img
       class="favicon"
-      src={`https://icon.horse/icon/${removeProtocol(href).split('/')[0]}`}
+      src={icon ??
+        `https://icon.horse/icon/${removeProtocol(href).split('/')[0]}`}
       alt=""
     />
     <div class="link-info">
