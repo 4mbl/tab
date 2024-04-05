@@ -20,7 +20,7 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
 const textEditorVisible =
   Astro.url.searchParams.get('editor') !== 'false' ?? false;
 
-const autoOpenEnabled = Astro.url.searchParams.get('open') === 'auto';
+const autoOpenEnabled = Astro.url.searchParams.get('auto') === 'true';
 ---
 
 <Layout title="New Tab">

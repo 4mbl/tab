@@ -31,7 +31,7 @@ const {} = Astro.props;
     document.cookie = `${name}=${value}; expires=${date.toUTCString()}`;
   }
 
-  const autoOpenLinks = url.searchParams.get('open') === 'auto';
+  const autoOpenLinks = url.searchParams.get('auto') === 'true';
   if (!autoOpenLinks) return;
 
   const hasPermission = document.cookie.includes('auto-open-permission=true');
