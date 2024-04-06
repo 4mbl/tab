@@ -6,6 +6,7 @@ import type { Link } from './Link';
 import type { Group } from './Group';
 import TextEditor from '../components/TextEditor.astro';
 import { getData } from '../scripts/getData';
+import AutoOpenDialog from '../components/AutoOpenDialog.astro';
 export const prerender = false;
 
 const data = await getData(Astro.url);
@@ -18,10 +19,13 @@ const onlyGroups = data.filter((item): item is Group => item.type === 'group');
 
 const textEditorVisible =
   Astro.url.searchParams.get('editor') !== 'false' ?? false;
+
+const autoOpenEnabled = Astro.url.searchParams.get('auto') === 'true';
 ---
 
 <Layout title="New Tab">
   <main>
+    {autoOpenEnabled && <AutoOpenDialog />}
     <div class="groupped-links">
       <ul role="list" class="link-card-grid">
         {
@@ -96,3 +100,16 @@ const textEditorVisible =
     margin: 1rem 0;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'a' && e.ctrlKey) {
+        e.preventDefault();
+        const params = new URLSearchParams(window.location.search);
+        params.set('auto', 'true');
+        window.location.search = params.toString();
+      }
+    });
+  });
+</script>

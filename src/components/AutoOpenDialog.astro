@@ -1,0 +1,139 @@
+---
+export interface Props {}
+
+const {} = Astro.props;
+---
+
+<div class="auto-open-dialog">
+  <dialog>
+    <div>
+      <p>Open links automatically?</p>
+      <button value="always" id="always">Always</button>
+      <button value="cancel" id="cancel">Cancel</button>
+      <button value="confirm" id="confirm" autofocus>OK</button>
+    </div>
+  </dialog>
+</div>
+
+<script define:vars={{}} is:inline>
+  function openLinks() {
+    const url = new URL(window.location.href);
+    document.querySelectorAll('.link-button').forEach((link) => {
+      const linkUrl = new URL(link.href);
+      if (linkUrl.origin !== url.origin) window.open(link.href, '_blank');
+    });
+    window.close();
+  }
+
+  function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${value}; expires=${date.toUTCString()}`;
+  }
+
+  const url = new URL(window.location.href);
+  const autoOpenLinks = url.searchParams.get('auto') === 'true';
+  if (!autoOpenLinks) return;
+
+  const hasPermission = document.cookie.includes('auto-open-permission=true');
+  if (hasPermission) {
+    setCookie('auto-open-permission', 'true', 365);
+    openLinks();
+    return;
+  }
+
+  const dialog = document.querySelector('.auto-open-dialog dialog');
+  dialog.showModal();
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'z' && e.ctrlKey) {
+        e.preventDefault();
+        const params = new URLSearchParams(window.location.search);
+        params.delete('auto');
+        if (params.toString()) window.location.search = params.toString();
+        else window.location.href = url.origin;
+      }
+    });
+
+    document
+      .querySelector('.auto-open-dialog #confirm')
+      .addEventListener('click', () => {
+        dialog.close('confirm');
+      });
+
+    document
+      .querySelector('.auto-open-dialog #cancel')
+      .addEventListener('click', () => {
+        dialog.close('cancel');
+      });
+
+    document
+      .querySelector('.auto-open-dialog #always')
+      .addEventListener('click', () => {
+        dialog.close('always');
+      });
+
+    dialog.addEventListener('close', () => {
+      const result = dialog.returnValue;
+      if (!result || result === 'cancel') return;
+
+      if (result === 'always') {
+        setCookie('auto-open-permission', 'true', 365);
+      }
+
+      openLinks();
+    });
+  });
+</script>
+
+<style>
+  dialog[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 33%;
+    height: 15%;
+    max-width: 300px;
+    padding: 1rem;
+    border-radius: 10px;
+    color: #ddd;
+    background-color: #333;
+  }
+
+  dialog[open]::backdrop {
+    backdrop-filter: blur(3px);
+  }
+
+  dialog[open] p {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+
+  dialog[open] button {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 0 2px #333;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  dialog[open] button:focus {
+    outline: none;
+    background-color: #aaa;
+  }
+
+  dialog[open] #confirm {
+    background-color: #87ceeb;
+    color: #333;
+  }
+
+  dialog[open] #confirm:focus {
+    background-color: #4169e1;
+  }
+</style>
