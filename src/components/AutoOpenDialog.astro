@@ -16,8 +16,8 @@ const {} = Astro.props;
 </div>
 
 <script define:vars={{}} is:inline>
-  const url = new URL(window.location.href);
   function openLinks() {
+    const url = new URL(window.location.href);
     document.querySelectorAll('.link-button').forEach((link) => {
       const linkUrl = new URL(link.href);
       if (linkUrl.origin !== url.origin) window.open(link.href, '_blank');
@@ -31,6 +31,7 @@ const {} = Astro.props;
     document.cookie = `${name}=${value}; expires=${date.toUTCString()}`;
   }
 
+  const url = new URL(window.location.href);
   const autoOpenLinks = url.searchParams.get('auto') === 'true';
   if (!autoOpenLinks) return;
 
@@ -46,19 +47,19 @@ const {} = Astro.props;
 
   document.addEventListener('DOMContentLoaded', () => {
     document
-      .getElementById('.auto-open-dialog confirm')
+      .querySelector('.auto-open-dialog #confirm')
       .addEventListener('click', () => {
         dialog.close('confirm');
       });
 
     document
-      .getElementById('.auto-open-dialog cancel')
+      .querySelector('.auto-open-dialog #cancel')
       .addEventListener('click', () => {
         dialog.close('cancel');
       });
 
     document
-      .getElementById('.auto-open-dialog always')
+      .querySelector('.auto-open-dialog #always')
       .addEventListener('click', () => {
         dialog.close('always');
       });
