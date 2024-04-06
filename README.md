@@ -96,7 +96,7 @@ To use the site as your new tab page in Chrome, follow these steps:
 1. Install some extension that allows you to set a custom new tab page. For example:
  [New Tab Redirect](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna).
 2. You might need to grant [pop-up and redirect](https://support.google.com/chrome/answer/95472) permissions for the site.
-3. Set the new tab page url to [tab.4mbl.net](https://tab.4mbl.net). You can also pass the `src` query parameter here.
+3. Set the new tab page url to [tab.4mbl.net](https://tab.4mbl.net). You can also pass `src` or `links` query parameter here.
 
 Other browsers might have similar extensions. You are on your own there.
 
