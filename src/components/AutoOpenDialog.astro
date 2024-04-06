@@ -46,6 +46,16 @@ const {} = Astro.props;
   dialog.showModal();
 
   document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'z' && e.ctrlKey) {
+        e.preventDefault();
+        const params = new URLSearchParams(window.location.search);
+        params.delete('auto');
+        if (params.toString()) window.location.search = params.toString();
+        else window.location.href = url.origin;
+      }
+    });
+
     document
       .querySelector('.auto-open-dialog #confirm')
       .addEventListener('click', () => {
