@@ -15,13 +15,15 @@ function uuid() {
   );
 }
 
-const group = uuid();
+const groupId = uuid();
 ---
 
-<div id={group} class="group-card">
+<div id={groupId} class="group-card">
   <div class="group-header">
-    <h2 class="closed" tabindex="1">{title}</h2>
-    <button class="btn-open-all" tabindex="1">Open All</button>
+    <h2 class="closed" tabindex="1" data-group-id={groupId}>{title}</h2>
+    <button class="btn-open-all" tabindex="1" data-group-id={groupId}
+      >Open All</button
+    >
   </div>
   <ul class="link-list hidden">
     {
@@ -119,29 +121,39 @@ const group = uuid();
   }
 </style>
 
-<script define:vars={{ group, links }}>
-  const openAllBtn = document.querySelector(`#${group} button`);
-  openAllBtn.addEventListener('click', () => {
-    links.forEach((link) => {
-      window.open(link.url, '_blank');
+<script>
+  const openAllButtons = document.querySelectorAll('.btn-open-all');
+  openAllButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const groupId = btn.getAttribute('data-group-id');
+      const links = document.querySelectorAll(`#${groupId} a`);
+      links.forEach((link) => {
+        const url = link.getAttribute('href');
+        if (url) window.open(url, '_blank');
+      });
+      window.close();
     });
-    window.close();
   });
 
-  const heading = document.querySelector(`#${group} h2`);
-  heading.addEventListener('click', () => {
-    toggleLinkList(group);
-  });
-  heading.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleLinkList(group);
-    }
+  const groupHeadings = document.querySelectorAll('.group-card h2');
+  groupHeadings.forEach((heading) => {
+    const groupId = heading.getAttribute('data-group-id');
+    if (!groupId) return;
+    heading.addEventListener('click', () => {
+      toggleLinkList(groupId);
+    });
+    heading.addEventListener('keydown', (e: any) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleLinkList(groupId);
+      }
+    });
   });
 
-  function toggleLinkList(groupId) {
+  function toggleLinkList(groupId: string) {
     const heading = document.querySelector(`#${groupId} h2`);
     const linkList = document.querySelector(`#${groupId} .link-list`);
+    if (!linkList || !heading) return;
     linkList.classList.toggle('hidden');
     heading.classList.toggle('open');
     heading.classList.toggle('closed');
