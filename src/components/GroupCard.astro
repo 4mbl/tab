@@ -20,10 +20,8 @@ const groupId = uuid();
 
 <div id={groupId} class="group-card">
   <div class="group-header">
-    <h2 class="closed" tabindex="1" data-group-id={groupId}>{title}</h2>
-    <button class="btn-open-all" tabindex="1" data-group-id={groupId}
-      >Open All</button
-    >
+    <h2 class="closed" tabindex="1">{title}</h2>
+    <button class="btn-open-all" tabindex="1">Open All</button>
   </div>
   <ul class="link-list hidden">
     {
@@ -122,35 +120,40 @@ const groupId = uuid();
 </style>
 
 <script>
-  const openAllButtons = document.querySelectorAll('.btn-open-all');
-  openAllButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      let firstUrl = '';
-      const groupId = btn.getAttribute('data-group-id');
-      const links = document.querySelectorAll(`#${groupId} a`);
-      links.forEach((link) => {
-        const url = link.getAttribute('href');
-        if (!url) return;
-        if (!firstUrl) firstUrl = url;
-        else window.open(url, '_blank');
-      });
-      window.open(firstUrl, '_self');
-    });
-  });
+  const groupCards = document.querySelectorAll('.group-card');
 
-  const groupHeadings = document.querySelectorAll('.group-card h2');
-  groupHeadings.forEach((heading) => {
-    const groupId = heading.getAttribute('data-group-id');
-    if (!groupId) return;
-    heading.addEventListener('click', () => {
-      toggleLinkList(groupId);
-    });
-    heading.addEventListener('keydown', (e: any) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleLinkList(groupId);
+  groupCards.forEach((card) => {
+    const groupId = card.getAttribute('id');
+
+    const button = card.querySelector('.btn-open-all');
+    if (button) {
+      button.addEventListener('click', () => {
+        let firstUrl = '';
+        const links = document.querySelectorAll(`#${groupId} a`);
+        links.forEach((link) => {
+          const url = link.getAttribute('href');
+          if (!url) return;
+          if (!firstUrl) firstUrl = url;
+          else window.open(url, '_blank');
+        });
+        window.open(firstUrl, '_self');
+      });
+    }
+
+    const heading = card.querySelector('h2');
+    if (heading) {
+      if (groupId) {
+        heading.addEventListener('click', () => {
+          toggleLinkList(groupId);
+        });
+        heading.addEventListener('keydown', (e: any) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleLinkList(groupId);
+          }
+        });
       }
-    });
+    }
   });
 
   function toggleLinkList(groupId: string) {
