@@ -125,13 +125,16 @@ const groupId = uuid();
   const openAllButtons = document.querySelectorAll('.btn-open-all');
   openAllButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
+      let firstUrl = '';
       const groupId = btn.getAttribute('data-group-id');
       const links = document.querySelectorAll(`#${groupId} a`);
       links.forEach((link) => {
         const url = link.getAttribute('href');
-        if (url) window.open(url, '_blank');
+        if (!url) return;
+        if (!firstUrl) firstUrl = url;
+        else window.open(url, '_blank');
       });
-      window.close();
+      window.open(firstUrl, '_self');
     });
   });
 
