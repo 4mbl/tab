@@ -17,6 +17,7 @@ const removeProtocol = (url: string) => {
   <a class="link-button" href={href} tabindex="1">
     <img
       class="favicon"
+      loading="lazy"
       src={icon ??
         `https://icon.horse/icon/${removeProtocol(href).split('/')[0]}`}
       alt=""

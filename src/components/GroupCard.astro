@@ -15,10 +15,10 @@ function uuid() {
   );
 }
 
-const group = uuid();
+const groupId = uuid();
 ---
 
-<div id={group} class="group-card">
+<div id={groupId} class="group-card">
   <div class="group-header">
     <h2 class="closed" tabindex="1">{title}</h2>
     <button class="btn-open-all" tabindex="1">Open All</button>
@@ -119,29 +119,47 @@ const group = uuid();
   }
 </style>
 
-<script define:vars={{ group, links }}>
-  const openAllBtn = document.querySelector(`#${group} button`);
-  openAllBtn.addEventListener('click', () => {
-    links.forEach((link) => {
-      window.open(link.url, '_blank');
-    });
-    window.close();
-  });
+<script>
+  const groupCards = document.querySelectorAll('.group-card');
 
-  const heading = document.querySelector(`#${group} h2`);
-  heading.addEventListener('click', () => {
-    toggleLinkList(group);
-  });
-  heading.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleLinkList(group);
+  groupCards.forEach((card) => {
+    const groupId = card.getAttribute('id');
+
+    const button = card.querySelector('.btn-open-all');
+    if (button) {
+      button.addEventListener('click', () => {
+        let firstUrl = '';
+        const links = document.querySelectorAll(`#${groupId} a`);
+        links.forEach((link) => {
+          const url = link.getAttribute('href');
+          if (!url) return;
+          if (!firstUrl) firstUrl = url;
+          else window.open(url, '_blank');
+        });
+        window.open(firstUrl, '_self');
+      });
+    }
+
+    const heading = card.querySelector('h2');
+    if (heading) {
+      if (groupId) {
+        heading.addEventListener('click', () => {
+          toggleLinkList(groupId);
+        });
+        heading.addEventListener('keydown', (e: any) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleLinkList(groupId);
+          }
+        });
+      }
     }
   });
 
-  function toggleLinkList(groupId) {
+  function toggleLinkList(groupId: string) {
     const heading = document.querySelector(`#${groupId} h2`);
     const linkList = document.querySelector(`#${groupId} .link-list`);
+    if (!linkList || !heading) return;
     linkList.classList.toggle('hidden');
     heading.classList.toggle('open');
     heading.classList.toggle('closed');
