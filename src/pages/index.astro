@@ -34,26 +34,26 @@ const onlyLinks = data
 
 const onlyGroups = data.filter((item): item is Group => item.type === 'group');
 
-const CHAR_CUTOFF = 25 as const;
+const CHAR_CUTOFF = 10 as const;
 const truncate = (text: string) =>
-  text.length > CHAR_CUTOFF ? text.slice(0, CHAR_CUTOFF) + '...' : text;
-const linksAndGroups = [...onlyGroups, ...onlyLinks];
+  text.length > CHAR_CUTOFF ? text.slice(0, CHAR_CUTOFF) + '…' : text;
+
+const linksAndGroups = [
+  ...onlyLinks,
+  ...onlyGroups.flatMap((group) => group.links),
+];
 const allLinks = linksAndGroups
-  .map((item) =>
-    item.type === 'group'
-      ? `[ ${truncate(item.title)} ]`
-      : item.title ?? item.url.replace(/https?:\/\//, '')
-  )
+  .map((item) => item.title ?? item.url.replace(/https?:\/\//, ''))
   .slice(0, 5)
   .map((title) => truncate(title));
 
 const ogImage =
-  'https://api.4mbl.net/og/v0?background=black&color=%233333ff&fontSize=50&text=' +
-  encodeURIComponent(allLinks.join('\n\r'));
+  'https://api.4mbl.net/og/v0?background=black&color=%233333ff&fontSize=256&text=' +
+  '[tab]';
 
 const ogMetadata = {
   title: pageTitle,
-  description: pageDescription,
+  description: allLinks.join(' | '),
   image: ogImage,
 };
 
