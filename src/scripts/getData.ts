@@ -1,8 +1,9 @@
 import defaultData from '../data/default_links.json';
 import type { Group } from '../pages/Group';
 import type { Link } from '../pages/Link';
+import type { Metadata } from '../pages/Metadata';
 
-type Item = Link | Group;
+type Item = Link | Group | Metadata;
 
 export async function getData(astroUrl: URL): Promise<Item[]> {
   const searchParams = astroUrl.searchParams;
