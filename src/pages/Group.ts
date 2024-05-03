@@ -2,6 +2,6 @@ import type { Link } from './Link';
 
 export type Group = {
   type: 'group';
-  title?: string;
+  title: string;
   links: Link[];
 };
