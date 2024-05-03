@@ -17,9 +17,16 @@ const DEFAULT_METADATA = {
   icon: '/favicon.svg',
 } as const;
 const metadata = data.find((item) => item.type === 'metadata');
-const pageTitle = Astro.url.searchParams.get('title') ?? metadata?.title ?? DEFAULT_METADATA.title;
-const pageDescription = Astro.url.searchParams.get('description') ?? metadata?.description ?? DEFAULT_METADATA.description
-const pageIcon = Astro.url.searchParams.get('icon') ?? metadata?.icon ?? DEFAULT_METADATA.icon;
+const pageTitle =
+  Astro.url.searchParams.get('title') ??
+  metadata?.title ??
+  DEFAULT_METADATA.title;
+const pageDescription =
+  Astro.url.searchParams.get('description') ??
+  metadata?.description ??
+  DEFAULT_METADATA.description;
+const pageIcon =
+  Astro.url.searchParams.get('icon') ?? metadata?.icon ?? DEFAULT_METADATA.icon;
 
 const onlyLinks = data
   .filter((item): item is Link => item.type === 'link' || !item.type)
@@ -27,13 +34,40 @@ const onlyLinks = data
 
 const onlyGroups = data.filter((item): item is Group => item.type === 'group');
 
+const CHAR_CUTOFF = 25 as const;
+const truncate = (text: string) =>
+  text.length > CHAR_CUTOFF ? text.slice(0, CHAR_CUTOFF) + '...' : text;
+const linksAndGroups = [...onlyGroups, ...onlyLinks];
+const allLinks = linksAndGroups
+  .map((item) =>
+    item.type === 'group'
+      ? `[ ${truncate(item.title)} ]`
+      : item.title ?? item.url.replace(/https?:\/\//, '')
+  )
+  .slice(0, 5)
+  .map((title) => truncate(title));
+
+const ogImage =
+  'https://api.4mbl.net/og/v0?background=black&color=%233333ff&fontSize=50&text=' +
+  encodeURIComponent(allLinks.join('\n\r'));
+
+const ogMetadata = {
+  title: pageTitle,
+  description: pageDescription,
+  image: ogImage,
+};
+
 const textEditorVisible =
   Astro.url.searchParams.get('editor') !== 'false' ?? false;
 
 const autoOpenEnabled = Astro.url.searchParams.get('auto') === 'true';
 ---
 
-<Layout title={pageTitle} description={pageDescription} icon={pageIcon}>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  icon={pageIcon}
+  og={ogMetadata}>
   <main>
     {autoOpenEnabled && <AutoOpenDialog />}
     <div class="groupped-links">

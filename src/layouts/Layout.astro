@@ -4,9 +4,17 @@ export interface Props {
   title: string;
   description?: string;
   icon?: string;
+  og?: OpenGraph;
 }
 
-const { title, description, icon } = Astro.props;
+type OpenGraph = {
+  title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+}
+
+const { title, description, icon, og } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,6 +23,9 @@ const { title, description, icon } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content={description ?? ''} />
     <meta name="viewport" content="width=device-width" />
+    <meta property="og:title" content={og?.title ?? title} />
+    <meta property="og:description" content={og?.description ?? description} />
+    <meta property="og:image" content={og?.image} />
     <link rel="icon" type="image/svg+xml" href={icon ?? '/favicon.svg'} />
     <title>{title}</title>
   </head>
