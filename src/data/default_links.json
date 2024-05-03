@@ -1,5 +1,11 @@
 [
   {
+    "type": "metadata",
+    "title": "Tab",
+    "description": "A simple link viewer",
+    "icon": "/favicon.svg"
+  },
+  {
     "url": "https://www.google.com",
     "title": "Google",
     "body": "Search Engine",
