@@ -11,6 +11,16 @@ export const prerender = false;
 
 const data = await getData(Astro.url);
 
+const DEFAULT_METADATA = {
+  title: 'New Tab',
+  description: '',
+  icon: '/favicon.svg',
+} as const;
+const metadata = data.find((item) => item.type === 'metadata');
+const pageTitle = Astro.url.searchParams.get('title') ?? metadata?.title ?? DEFAULT_METADATA.title;
+const pageDescription = Astro.url.searchParams.get('description') ?? metadata?.description ?? DEFAULT_METADATA.description
+const pageIcon = Astro.url.searchParams.get('icon') ?? metadata?.icon ?? DEFAULT_METADATA.icon;
+
 const onlyLinks = data
   .filter((item): item is Link => item.type === 'link' || !item.type)
   .filter((item) => item.url);
@@ -23,7 +33,7 @@ const textEditorVisible =
 const autoOpenEnabled = Astro.url.searchParams.get('auto') === 'true';
 ---
 
-<Layout title="New Tab">
+<Layout title={pageTitle} description={pageDescription} icon={pageIcon}>
   <main>
     {autoOpenEnabled && <AutoOpenDialog />}
     <div class="groupped-links">
