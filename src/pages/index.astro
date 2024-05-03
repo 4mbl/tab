@@ -7,6 +7,7 @@ import type { Group } from './Group';
 import TextEditor from '../components/TextEditor.astro';
 import { getData } from '../scripts/getData';
 import AutoOpenDialog from '../components/AutoOpenDialog.astro';
+import type { Metadata } from './Metadata';
 export const prerender = false;
 
 const data = await getData(Astro.url);
@@ -16,7 +17,9 @@ const DEFAULT_METADATA = {
   description: '',
   icon: '/favicon.svg',
 } as const;
-const metadata = data.find((item) => item.type === 'metadata');
+const metadata = data.find((item) => item.type === 'metadata') as
+  | Metadata
+  | undefined;
 const pageTitle =
   Astro.url.searchParams.get('title') ??
   metadata?.title ??
