@@ -12,6 +12,7 @@
     * [External JSON Data Source](#external-json-data-source)
   * [Link Groups](#link-groups)
   * [Using as Chrome new tab page](#using-as-chrome-new-tab-page)
+  * [Page Metadata](#page-metadata)
   * [Other Features](#other-features)
 * [License](#license)
 
@@ -99,6 +100,25 @@ To use the site as your new tab page in Chrome, follow these steps:
 3. Set the new tab page url to [tab.4mbl.net](https://tab.4mbl.net). You can also pass `src` or `links` query parameter here.
 
 Other browsers might have similar extensions. You are on your own there.
+
+### Page Metadata
+
+You can customize the page metadata within the JSON data source.
+
+```jsonc
+
+[
+  {
+    "type": "metadata",
+    "title": "My Custom Title",
+    "description": "My Custom Description",
+    "icon": "https://example.com/favicon.ico"
+  },
+    // link data...
+]
+```
+
+You can also use the query parameters to do the same. For example: [`https://tab.4mbl.net/?title=Custom%20Title&description=Custom%20Desc&icon=https://google.com/favicon.ico`](https://tab.4mbl.net/?title=Custom%20Title&description=Custom%20Desc&icon=https://google.com/favicon.ico). Query parameters take precedence over the JSON data source.
 
 ### Other Features
 
