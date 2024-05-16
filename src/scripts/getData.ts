@@ -1,4 +1,3 @@
-import defaultData from '../data/default_links.json';
 import type { Group } from '../pages/Group';
 import type { Link } from '../pages/Link';
 import type { Metadata } from '../pages/Metadata';
@@ -8,14 +7,16 @@ type Item = Link | Group | Metadata;
 export async function getData(astroUrl: URL): Promise<Item[]> {
   const searchParams = astroUrl.searchParams;
   if (searchParams.has('links')) {
-    const urls = searchParams.get('links')!.split(/[,;]/);
-    return urls.map((url) => {
-      const decoded = decodeURIComponent(url);
+    const input = searchParams.get('links')!.split(/[,;]/) || [];
+    const trimmedInput = input.map((url) => url.trim());
+    const filteredUrls = trimmedInput.filter((url) => url.length > 0);
+    const decodedUrls = filteredUrls.map((url) => decodeURIComponent(url));
+    return decodedUrls.map((url) => {
       return {
         url:
-          decoded.startsWith('http') || decoded.startsWith('file://')
-            ? decoded
-            : `https://${decoded}`,
+          url.startsWith('http') || url.startsWith('file://')
+            ? url
+            : `https://${url}`,
       };
     });
   }
@@ -26,29 +27,20 @@ export async function getData(astroUrl: URL): Promise<Item[]> {
       .filter((url) => url.length > 0)
       .map((url) => decodeURIComponent(url));
 
-    let data;
-    if (urls.length === 0) {
-      data = defaultData as Item[];
-    } else {
-      const responses = await Promise.all(
-        urls.map((url) =>
-          fetch(`https://${url}`, {
-            method: 'GET',
-            redirect: 'follow',
-            headers: {
-              'Cache-Control': 'no-cache',
-              'Content-Type': 'application/json',
-            },
-          })
-        )
-      );
+    const responses = await Promise.all(
+      urls.map((url) =>
+        fetch(`https://${url}`, {
+          method: 'GET',
+          redirect: 'follow',
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Content-Type': 'application/json',
+          },
+        }).then((response) => response.json())
+      )
+    );
 
-      const jsons = await Promise.all(
-        responses.map((response) => response.json())
-      );
-
-      return jsons.flat() as Item[];
-    }
+    return responses.flat() as Item[];
   }
 
   return (await fetch(`${astroUrl.origin}/-/default-links`).then((response) =>
