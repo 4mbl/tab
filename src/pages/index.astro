@@ -151,7 +151,11 @@ const autoOpenEnabled = Astro.url.searchParams.get('auto') === 'true';
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'a' && e.ctrlKey) {
+      if (
+        e.key === 'a' &&
+        e.ctrlKey &&
+        !(document.activeElement?.tagName.toLowerCase() === 'textarea')
+      ) {
         e.preventDefault();
         const params = new URLSearchParams(window.location.search);
         params.set('auto', 'true');
