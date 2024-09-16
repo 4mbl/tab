@@ -136,13 +136,13 @@ const autoOpenEnabled = Astro.url.searchParams.get('auto') === 'true';
     align-items: center;
     gap: 1rem;
     padding: 0;
-    gap: 1rem;
-    padding: 0;
     margin: 0;
   }
 
   .text-editor-container {
-    width: 55ch;
+    display: flex;
+    justify-content: center;
+    min-width: 55ch;
     height: 15rem;
     margin: 1rem 0;
   }
