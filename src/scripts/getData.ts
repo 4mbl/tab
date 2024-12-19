@@ -1,6 +1,6 @@
-import type { Group } from '../pages/Group';
-import type { Link } from '../pages/Link';
-import type { Metadata } from '../pages/Metadata';
+import type { Group } from '../types/Group';
+import type { Link } from '../types/Link';
+import type { Metadata } from '../types/Metadata';
 
 type Item = Link | Group | Metadata;
 
