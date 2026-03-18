@@ -10,4 +10,16 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  security: {
+    allowedDomains: [
+      {
+        hostname: 'tab.4mbl.net',
+        protocol: 'https',
+      },
+      {
+        hostname: '**.vercel.app',
+        protocol: 'https',
+      },
+    ],
+  },
 });
