@@ -4,21 +4,19 @@ import type { Metadata } from '../types/Metadata';
 
 type Item = Link | Group | Metadata;
 
-export async function getData(astroUrl: URL): Promise<Item[]> {
-  const searchParams = astroUrl.searchParams;
+export async function getData(url: URL): Promise<Item[]> {
+  const searchParams = url.searchParams;
   if (searchParams.has('links')) {
     const input = searchParams.get('links')!.split(/[,;]/) || [];
     const trimmedInput = input.map((url) => url.trim());
     const filteredUrls = trimmedInput.filter((url) => url.length > 0);
     const decodedUrls = filteredUrls.map((url) => decodeURIComponent(url));
-    return decodedUrls.map((url) => {
-      return {
-        url:
-          url.startsWith('http') || url.startsWith('file://')
-            ? url
-            : `https://${url}`,
-      };
-    });
+    return decodedUrls.map((url) => ({
+      url:
+        url.startsWith('http') || url.startsWith('file://')
+          ? url
+          : `https://${url}`,
+    }));
   }
 
   if (searchParams.has('src')) {
@@ -36,14 +34,15 @@ export async function getData(astroUrl: URL): Promise<Item[]> {
             'Cache-Control': 'no-cache',
             'Content-Type': 'application/json',
           },
-        }).then((response) => response.json())
-      )
+        }).then((response) => response.json()),
+      ),
     );
 
     return responses.flat() as Item[];
   }
 
-  return (await fetch(`${astroUrl.origin}/-/default-links`).then((response) =>
-    response.json()
-  )) as Item[];
+  const response = await fetch(`${url.origin}/-/default-links`);
+  const defaultLinks = await response.json();
+
+  return defaultLinks as Item[];
 }
