@@ -10,8 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "^9.0.5",
-    "astro": "^5.18.1"
+    "@astrojs/vercel": "^10.0.1",
+    "astro": "^6.0.5"
   },
   "packageManager": "pnpm@9.4.0"
 }
