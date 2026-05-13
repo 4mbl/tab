@@ -9,13 +9,7 @@ export interface Props {
 
 const { title, links } = Astro.props;
 
-function uuid() {
-  return 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/x/g, () =>
-    String.fromCharCode(97 + Math.floor(Math.random() * 26)),
-  );
-}
-
-const groupId = uuid();
+const groupId = crypto.randomUUID().replace(/-/g, '');
 ---
 
 <div id={groupId} class="group-card">
