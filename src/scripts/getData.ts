@@ -41,7 +41,7 @@ export async function getData(url: URL): Promise<Item[]> {
     return responses.flat() as Item[];
   }
 
-  const response = await fetch(`${url.origin}/-/default-links`);
+  const response = await fetch(`${url.origin}/default-links.json`);
   const defaultLinks = await response.json();
 
   return defaultLinks as Item[];
