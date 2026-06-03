@@ -7,19 +7,17 @@ import type { Group } from '../types/Group';
 import TextEditor from '../components/TextEditor.astro';
 import { getData } from '../scripts/getData';
 import AutoOpenDialog from '../components/AutoOpenDialog.astro';
-import type { Metadata } from '../types/Metadata';
 export const prerender = false;
-
-const data = await getData(Astro.url);
 
 const DEFAULT_METADATA = {
   title: 'Tab',
   description: '',
   icon: '/favicon.svg',
 } as const;
-const metadata = data.find((item) => item.type === 'metadata') as
-  | Metadata
-  | undefined;
+
+const data = await getData(Astro.url);
+
+const metadata = data.find((item) => item.type === 'metadata');
 const pageTitle =
   Astro.url.searchParams.get('title') ??
   metadata?.title ??
@@ -75,14 +73,14 @@ const autoOpenEnabled = Astro.url.searchParams.get('auto') === 'true';
     <div class="groupped-links">
       <ul role="list" class="link-card-grid">
         {
-          onlyGroups.map((item: Group) => (
+          onlyGroups.map((item) => (
             <li class="grid-item">
-              <GroupCard title={item.title!} links={item.links} />
+              <GroupCard title={item.title} links={item.links} />
             </li>
           ))
         }
         {
-          onlyLinks.map((item: Link) => (
+          onlyLinks.map((item) => (
             <li class="grid-item">
               <LinkCard
                 href={item.url}
