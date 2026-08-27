@@ -31,60 +31,64 @@ const {} = Astro.props;
     document.cookie = `${name}=${value}; expires=${date.toUTCString()}`;
   }
 
-  const url = new URL(window.location.href);
-  const autoOpenLinks = url.searchParams.get('auto') === 'true';
-  if (!autoOpenLinks) return;
+  function initializeAutoOpen() {
+    const url = new URL(window.location.href);
+    const autoOpenLinks = url.searchParams.get('auto') === 'true';
+    if (!autoOpenLinks) return;
 
-  const hasPermission = document.cookie.includes('auto-open-permission=true');
-  if (hasPermission) {
-    setCookie('auto-open-permission', 'true', 365);
-    openLinks();
-    return;
+    const hasPermission = document.cookie.includes('auto-open-permission=true');
+    if (hasPermission) {
+      setCookie('auto-open-permission', 'true', 365);
+      openLinks();
+      return;
+    }
+
+    const dialog = document.querySelector('.auto-open-dialog dialog');
+    dialog.showModal();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'z' && e.ctrlKey) {
+          e.preventDefault();
+          const params = new URLSearchParams(window.location.search);
+          params.delete('auto');
+          if (params.toString()) window.location.search = params.toString();
+          else window.location.href = url.origin;
+        }
+      });
+
+      document
+        .querySelector('.auto-open-dialog #confirm')
+        .addEventListener('click', () => {
+          dialog.close('confirm');
+        });
+
+      document
+        .querySelector('.auto-open-dialog #cancel')
+        .addEventListener('click', () => {
+          dialog.close('cancel');
+        });
+
+      document
+        .querySelector('.auto-open-dialog #always')
+        .addEventListener('click', () => {
+          dialog.close('always');
+        });
+
+      dialog.addEventListener('close', () => {
+        const result = dialog.returnValue;
+        if (!result || result === 'cancel') return;
+
+        if (result === 'always') {
+          setCookie('auto-open-permission', 'true', 365);
+        }
+
+        openLinks();
+      });
+    });
   }
 
-  const dialog = document.querySelector('.auto-open-dialog dialog');
-  dialog.showModal();
-
-  document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'z' && e.ctrlKey) {
-        e.preventDefault();
-        const params = new URLSearchParams(window.location.search);
-        params.delete('auto');
-        if (params.toString()) window.location.search = params.toString();
-        else window.location.href = url.origin;
-      }
-    });
-
-    document
-      .querySelector('.auto-open-dialog #confirm')
-      .addEventListener('click', () => {
-        dialog.close('confirm');
-      });
-
-    document
-      .querySelector('.auto-open-dialog #cancel')
-      .addEventListener('click', () => {
-        dialog.close('cancel');
-      });
-
-    document
-      .querySelector('.auto-open-dialog #always')
-      .addEventListener('click', () => {
-        dialog.close('always');
-      });
-
-    dialog.addEventListener('close', () => {
-      const result = dialog.returnValue;
-      if (!result || result === 'cancel') return;
-
-      if (result === 'always') {
-        setCookie('auto-open-permission', 'true', 365);
-      }
-
-      openLinks();
-    });
-  });
+  initializeAutoOpen();
 </script>
 
 <style>
