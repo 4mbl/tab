@@ -1,6 +1,7 @@
 import type { Group } from '../types/Group';
 import type { Link } from '../types/Link';
 import type { Metadata } from '../types/Metadata';
+import defaultLinks from '../../public/default-links.json';
 
 type Item = Link | Group | Metadata;
 
@@ -40,9 +41,6 @@ export async function getData(url: URL): Promise<Item[]> {
 
     return responses.flat() as Item[];
   }
-
-  const response = await fetch(`${url.origin}/default-links.json`);
-  const defaultLinks = await response.json();
 
   return defaultLinks as Item[];
 }
