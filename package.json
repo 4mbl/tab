@@ -10,8 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "11.0.10",
-    "astro": "7.3.1"
+    "@astrojs/vercel": "11.0.11",
+    "astro": "7.3.5"
   },
   "devEngines": {
     "runtime": {
